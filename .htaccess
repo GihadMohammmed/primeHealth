@@ -1,0 +1,41 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+#SetEnv CI_ENV production
+SetEnv CI_ENV development
+
+
+
+#add www and redirect to http
+# RewriteCond %{HTTP_HOST} !^www\.
+# RewriteRule (.*) http://www.%{SERVER_NAME}%{REQUEST_URI} [R=301]
+# RewriteCond %{http} !=on
+# RewriteRule ^ http://%{HTTP_HOST}%{REQUEST_URI} [R=301]
+
+RewriteCond %{THE_REQUEST} ^.*/index\.php
+RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+
+RewriteRule ^index.php$ http://prime-hospital.log [END,R=301]
+RewriteRule ^index.php/$ http://prime-hospital.log [END,R=301]
+
+RewriteRule ^(.*)prime-hospital/departments/neuro-surgery-$ /prime-hospital/departments/neuro-surgery [END,R=301]
+
+#directory restrictions
+Options -Indexes
+
+
+RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+RewriteRule (.?)index\.php/(.*) http://prime-hospital.log$1$2 [R=301,NE,L]
+
+RewriteRule ^(.*)prime-medical-centers/media-corner-prime-medical-center/in-the-news-prime-medical-centers/prime$ /prime-medical-center/in-the-news [END,R=301]
+RewriteRule ^(.*)prime-hospital/media-corner/in-the-news/uae-nearly-70-per-cent-emirati-male-adults-under-30-are$ /prime-medical-center/in-the-news [END,R=301]
+RewriteRule ^(.*)prime-hospital/special-offers/eye-package$ /prime-hospital/special-offers [END,R=301]
+RewriteRule ^(.*)prime-hospital/departments/obstetrics-and-gynaecology-women-care$ /prime-hospital/departments/obstetrics--gynaecology-women-care [END,R=301]
+RewriteRule ^(.*)prime-hospital/special-offers/cervical-cancer---screening-package-prime-hospital$ /prime-hospital/special-offers [END,R=301]
+RewriteRule ^(.*)prime-medical-center/special-offers/cervical-cancer---screening-package$ /prime-hospital/special-offers [END,R=301]
+
+#below code is commented
+#RewriteRule ^(.*)index.php/prime-medical-center/insurance-info/fortunecare---fortune-sehteq-basic$ http://prime-hospital.logprime-medical-center/insurance-info/fortunecare---fortune-sehteq-basic [END,R=301]
+#RewriteRule ^index.php/prime-medical-center/insurance-info/fortunecare---fortune-sehteq-basic(.*)$ http://prime-hospital.logprime-medical-center/insurance-info/fortunecare---fortune-sehteq-basic [L,R=301]
+# RewriteRule http://campaign.primehealth.ae/teleprime.html$ http://prime-hospital.log [END,R=301]
